@@ -47,8 +47,8 @@ Contains the following fields:
 - y
 - z
 
-There are  **two Glue tables** for the two landing zones: customer_landing.sql and accelerometer_landing.sql.
-
+There are  **two Glue tables** for the two landing zones: customer_landing.sql and accelerometer_landing.sql. 
+[ added in the script directory]
 This is how it looks like customer_landing and accelerometer_landing querying them with **AWS Athena**:
 
 
