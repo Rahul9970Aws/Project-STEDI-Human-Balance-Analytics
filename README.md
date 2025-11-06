@@ -1,6 +1,5 @@
 # Human Balance Lakehouse
 
-![datalake](./img/lakehouse.png)
 
 Using AWS Glue, AWS S3, Python, and Spark, create or generate Python  scripts to build a lakehouse solution in AWS that satisfies these  requirements from the STEDI data scientists. Project required from AWS Data Engineering nanodegree on Udacity.
 
@@ -52,40 +51,26 @@ There are  **two Glue tables** for the two landing zones: customer_landing.sql a
 
 This is how it looks like customer_landing and accelerometer_landing querying them with **AWS Athena**:
 
-![customer_landing](./img/customer_landing.png)
 
-![accelerometer_landing](./img/accelerometer_landing.png)
 
 ## TRUSTED AND CURATED ZONES
 
 The Data Science team has done some preliminary data analysis and determined that the **Accelerometer Records** each match one of the **Customer Records**. They would like you to create 2 AWS Glue Jobs that do the following:
 
-1. Sanitize the  Customer data from the Website (Landing Zone) and only store the  Customer Records who agreed to share their data for research purposes  (Trusted Zone) - creating a Glue Table called **customer_trusted** (customer_trusted.py). Below the query from Athena of the customer_trusted s3 bucket:![customer_trusted](./img/customer_trusted.png)
+1. Sanitize the  Customer data from the Website (Landing Zone) and only store the  Customer Records who agreed to share their data for research purposes  (Trusted Zone) - creating a Glue Table called **customer_trusted** (customer_trusted.py). Below the query from Athena of the customer_trusted s3 bucket:![customer_trusted]
 
    A screenshot that shows a select * statement from Athena showing the  customer landing data, where the resulting customer trusted data has no  rows where shareWithResearchAsOfDate is blank.
 
-   ![customer_trusted_blank](./img/customer_trusted_blank.png)
 
-2. Sanitize the Accelerometer data from the Mobile App (Landing Zone) - and only  store Accelerometer Readings from customers who agreed to share their  data for research purposes (Trusted Zone) - creating a Glue Table called **accelerometer_trusted**. Below the query from Athena of the accelerometer_trusted s3 bucket:![accelerometer_trusted](./img/accelerometer_trusted.png)
+
+2. Sanitize the Accelerometer data from the Mobile App (Landing Zone) - and only  store Accelerometer Readings from customers who agreed to share their  data for research purposes (Trusted Zone) - creating a Glue Table called **accelerometer_trusted**. Below the query from Athena of the accelerometer_trusted s3 bucket:![accelerometer_trusted]
 
 **NOTE**:
 
 For AWS Glue to act on your behalf to  access S3 and other resources, you need to grant access to the Glue  Service by creating an IAM Service Role that can be assumed by Glue:
+provided the aws s3 full access
+<img width="833" height="358" alt="image" src="https://github.com/user-attachments/assets/566bfb22-3f12-4355-8257-c753e920e180" />
 
-```
-aws iam create-role --role-name my-glue-service-role --assume-role-policy-document '{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "glue.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}'
-```
 
 Data Scientists have discovered a data quality issue with the Customer Data. The serial number should be a  unique identifier for the STEDI Step Trainer they purchased. However,  there was a defect in the fulfillment website, and it used the same 30  serial numbers over and over again for millions of customers!  Most  customers have not received their Step Trainers yet, but those who have, are submitting Step Trainer data over the IoT network (Landing Zone). *The data from the Step Trainer Records has the correct serial numbers.*
 
